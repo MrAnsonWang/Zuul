@@ -1,0 +1,33 @@
+server:
+  port: 8888
+  
+spring:
+  application:
+    name: API-Gateway
+  zipkin:
+    base-url: http://localhost:9411
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+    metadata-map:
+      cluster: default
+  client:
+    initial-instance-info-replication-interval-seconds: 0
+    instance-info-replication-interval-seconds: 1
+    registry-fetch-interval-seconds: 1
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    api-compute-service:
+      path: /compute-service/**
+      serviceId: Compute-Service
+
+Compute-Service: 
+  ribbon: 
+    ServerListRefreshInterval: 1000
